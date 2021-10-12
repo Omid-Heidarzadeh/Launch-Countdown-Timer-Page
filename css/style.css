@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  background: center/cover url("../images/bg-stars.svg"), linear-gradient(#1e1f29 0%, #292a38);
+  background: center/cover url("../images/bg-stars.svg"), linear-gradient(#1e1f29 0%, #281f29 100%);
   display: flex;
   flex-direction: column;
   font-size: 1.4rem;
@@ -91,11 +91,11 @@ body {
   filter: unset;
   border-radius: 0.5rem;
   height: 100%;
-  box-shadow: 0 5px #1e1f29;
+  box-shadow: 0 5px 2px #191a24;
 }
 @media screen and (min-width: 768px) {
   .widget__wrapper [class^=bottom] {
-    box-shadow: 0 10px #1e1f29;
+    box-shadow: 0 10px 3px #191a24;
   }
 }
 .widget__wrapper [class*=third] {
