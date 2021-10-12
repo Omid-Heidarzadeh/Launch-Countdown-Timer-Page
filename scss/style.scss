@@ -18,7 +18,10 @@ html {
 
 body {
   background: center / cover url("../images/bg-stars.svg"),
-    $page-background-color;
+    linear-gradient(
+      $page-background-color 0%,
+      lighten($page-background-color, 5%)
+    );
   display: flex;
   flex-direction: column;
   font-size: 1.4rem;
@@ -27,10 +30,7 @@ body {
 }
 
 .main-content {
-  display: flex;
   flex: 1 0 auto;
-  flex-direction: column;
-  justify-content: center;
   padding: 0 25px;
   text-align: center;
 }
@@ -39,12 +39,13 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.6rem;
   font-size: 2rem;
+  margin-top: 14rem;
 }
 
 .timer {
   display: flex;
-  justify-content: space-around;
-  margin: 6rem auto;
+  justify-content: center;
+  margin: 5rem auto;
   width: 100%;
   max-width: 700px;
 }
@@ -54,16 +55,25 @@ body {
   overflow: hidden;
   position: relative;
   text-align: center;
+  margin: 0 0.7rem;
+  @media screen and (min-width: 768px) {
+    width: 14.8rem;
+    margin: 0 1.6rem;
+  }
 }
 
 .widget__wrapper {
   font-size: 4rem;
   line-height: 1.65;
   height: 6.6rem;
-  max-width: 148px;
   width: 100%;
   position: relative;
   color: $soft-red;
+  @media screen and (min-width: 768px) {
+    font-size: 9rem;
+    line-height: 1.58;
+    height: 14rem;
+  }
   & [class^="top"] {
     background-color: $widget-background;
     border-radius: 5px 5px 0 0;
@@ -75,6 +85,9 @@ body {
     position: absolute;
     top: 0;
     width: 100%;
+    @media screen and (min-width: 768px) {
+      height: 7rem;
+    }
   }
   & [class^="bottom"] {
     @extend [class^="top"];
@@ -82,6 +95,10 @@ body {
     filter: unset;
     border-radius: 0.5rem;
     height: 100%;
+    box-shadow: 0 5px $page-background-color;
+    @media screen and (min-width: 768px) {
+      box-shadow: 0 10px $page-background-color;
+    }
   }
   @include stack-widget-upper-parts;
   &::before,
@@ -96,6 +113,10 @@ body {
     left: 0;
     top: 50%;
     transform: translate(-50%, -50%);
+    @media screen and (min-width: 768px) {
+      width: 12px;
+      height: 12px;
+    }
   }
   &::after {
     left: auto;
@@ -109,14 +130,20 @@ body {
   display: block;
   font-size: 0.8rem;
   letter-spacing: 0.3rem;
-  text-align: center;
-  text-transform: uppercase;
+  text: {
+    align: center;
+    transform: uppercase;
+  }
   margin: 1.5rem auto;
+  @media screen and (min-width: 768px) {
+    font-size: 1.4rem;
+    letter-spacing: 0.5rem;
+  }
 }
 
 .page-footer {
   background: 82% bottom / auto 100% repeat-x url("../images/pattern-hills.svg");
-  min-height: 200px;
+  min-height: 170px;
   display: flex;
   flex-direction: column;
   .icons-container {
@@ -136,7 +163,11 @@ body {
 }
 
 .attribution {
-  font-size: 11px;
+  // background-color: hsl(273, 38, 23);
+  font: {
+    size: 11px;
+    weight: normal;
+  }
   text-align: center;
 }
 
