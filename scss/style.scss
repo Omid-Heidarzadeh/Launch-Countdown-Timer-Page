@@ -4,6 +4,30 @@
 @import "variables";
 @import "mixins";
 
+@keyframes flipTop {
+  0% {
+    transform: rotateX(0deg) perspective(200px);
+  }
+  50% {
+    transform: rotateX(-90deg) perspective(200px);
+  }
+  100% {
+    transform: rotateX(-90deg) perspective(200px);
+  }
+}
+
+@keyframes flipBottom {
+  0% {
+    transform: rotateX(90deg) perspective(200px);
+  }
+  50% {
+    transform: rotateX(0deg) perspective(200px);
+  }
+  100% {
+    transform: rotateX(0deg) perspective(200px);
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -75,33 +99,45 @@ body {
     line-height: 1.58;
     height: 14rem;
   }
-  & [class^="top"] {
+  & [class*="top-back"],
+  & [class*="top-front"] {
+    display: inline-block;
     background-color: $widget-background;
     border-radius: 5px 5px 0 0;
     filter: brightness(0.8);
-    height: 3.3rem;
-    left: 0;
-    margin: 0;
-    overflow: hidden;
+    height: 100%;
+    width: 100%;
     position: absolute;
     top: 0;
-    width: 100%;
-    @media screen and (min-width: 768px) {
-      height: 7rem;
-    }
+    left: 0;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
   }
-  & [class^="bottom"] {
-    @extend [class^="top"];
+
+  & [class*="top-front"] {
+    transform-origin: 0 50%;
+  }
+
+  & [class*="bottom-back"] {
+    display: inline-block;
     background-color: $widget-background;
-    filter: unset;
     border-radius: 0.5rem;
+    clip-path: polygon(0% 100%, 100% 100%, 100% 50%, 0% 50%);
+    width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
     box-shadow: 0 5px 2px $shadow;
     @media screen and (min-width: 768px) {
       box-shadow: 0 10px 3px $shadow;
     }
   }
-  @include stack-widget-upper-parts;
+  [class*="bottom-front"] {
+    @extend [class*="bottom-back"];
+    box-shadow: unset;
+    transform-origin: 0 50%;
+    transform: rotateX(90deg) perspective(200px);
+  }
   &::before,
   &::after {
     content: "";
@@ -124,6 +160,16 @@ body {
     right: 0;
     transform: translate(50%, -50%);
   }
+}
+
+@include stack-widget-upper-parts;
+
+.flip-top {
+  animation: flipTop 1s 0s linear infinite;
+}
+
+.flip-bottom {
+  animation: flipBottom 1s 0.5s linear infinite;
 }
 
 .label {
@@ -164,7 +210,6 @@ body {
 }
 
 .attribution {
-  // background-color: hsl(273, 38, 23);
   font: {
     size: 11px;
     weight: normal;
