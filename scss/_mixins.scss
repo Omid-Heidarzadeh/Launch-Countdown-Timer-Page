@@ -1,0 +1,9 @@
+@mixin stack-widget-upper-parts {
+  $list: (third, second, first);
+  @for $i from 1 through 3 {
+    & [class*="#{list.nth($list, $i)}"] {
+      z-index: $i;
+    }
+    $i: $i + 1;
+  }
+}
