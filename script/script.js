@@ -9,7 +9,7 @@ const oneDay = 24 * oneHour;
 let isTimerStarted = false;
 
 // Defining an edge case as target time to check if all widgets working properly
-let targetTime = oneDay + 5;
+let targetTime = oneDay * 14;
 
 function timeTrackingObject(value, calc, widget) {
   this.currentValue = value;
