@@ -133,9 +133,9 @@ body {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background-color: #1e1f29;
+  background-color: #231f29;
   position: absolute;
-  z-index: 4;
+  z-index: 5;
   left: 0;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -152,27 +152,27 @@ body {
   transform: translate(50%, -50%);
 }
 
-[class="*bottom-back"] {
+[class*=bottom-back], .widget__wrapper [class*=bottom-front] {
   z-index: 1;
 }
 
-[class="*bottom-front"] {
+[class*=bottom-front] {
   z-index: 2;
 }
 
-[class="*top-back"] {
+[class*=top-back] {
   z-index: 3;
 }
 
-[class="*top-front"] {
+[class*=top-front] {
   z-index: 4;
 }
 
-.flip-top {
+.flip .flip-top {
   animation: flipTop 1s 0s linear infinite;
 }
 
-.flip-bottom {
+.flip .flip-bottom {
   animation: flipBottom 1s 0.5s linear infinite;
 }
 
