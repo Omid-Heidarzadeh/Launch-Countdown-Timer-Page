@@ -1,99 +1,103 @@
 const daysWidget = document.querySelector(".days .widget__wrapper");
 const hoursWidget = document.querySelector(".hours .widget__wrapper");
-const minutesWidet = document.querySelector(".minutes .widget__wrapper");
+const minutesWidget = document.querySelector(".minutes .widget__wrapper");
 const secondsWidget = document.querySelector(".seconds .widget__wrapper");
-const monthInSeconds = 30 * 24 * 60 * 60;
 
-let targetTime = Math.round(Math.random() * monthInSeconds); //?
-let seconds = calcSeconds();
-let minutes = calcMinutes();
-let hours = calcHours();
-let days = calcDays();
-let started = false;
+const oneMinute = 60;
+const oneHour = 60 * oneMinute;
+const oneDay = 24 * oneHour;
+let isTimerStarted = false;
 
+// Defining an edge case as target time to check if all widgets working properly
+let targetTime = oneDay + 5;
+
+function timeTrackingObject(value, calc, widget) {
+  this.currentValue = value;
+  this.calculator = calc;
+  this.widget = widget;
+  this.refreshValue = () => this.currentValue = this.calculator();
+}
+
+const secondsTracker = new timeTrackingObject(calcSeconds(), calcSeconds, secondsWidget);
+const minutessTracker = new timeTrackingObject(calcMinutes(), calcMinutes, minutesWidget);
+const hoursTracker = new timeTrackingObject(calcHours(), calcHours, hoursWidget);
+const daysTracker = new timeTrackingObject(calcDays(), calcDays, daysWidget);
+const allTimeTrackers = [secondsTracker, minutessTracker, hoursTracker, daysTracker];
+
+// ----- Calculators -----
 function calcSeconds() {
-  return targetTime % 60;
+  return targetTime % oneMinute;
 }
 
 function calcMinutes() {
-  return Math.floor((targetTime % (60 * 60)) / 60);
+  return Math.floor((targetTime % oneHour) / oneMinute);
 }
 
 function calcHours() {
-  return Math.floor((targetTime % (24 * 60 * 60)) / 3600);
+  return Math.floor((targetTime % oneDay) / oneHour);
 }
 
 function calcDays() {
-  return Math.floor(targetTime / (24 * 60 * 60));
+  return Math.floor(targetTime / oneDay);
 }
 
-function countDown() {
-  if (targetTime) {
-    targetTime--;
-    updateTimer();
-    setTimeout(() => {
-      countDown();
-    }, 1000);
+
+function updateTimeframe({ currentValue, calculator, widget, refreshValue }) {
+  if (!isTimerStarted || currentValue != calculator()) {
+    refreshValue();
+    updateWidget(widget, calculator());
   }
 }
 
-function updateSeconds() {
-  let last = seconds;
-  seconds = calcSeconds();
-  if (!started || last != seconds) updateWidget(secondsWidget, last, seconds);
+function updateWidget(widget, value) {
+  value = twoDigitZeroPaded(value);
+  updateRevealingChildren(widget, value);
+  animateWidgetAndUpdateHiddenChildren(widget, value);
 }
 
-function updateMinutes() {
-  let last = minutes;
-  minutes = calcMinutes();
-  if (!started || last != minutes) updateWidget(minutesWidet, last, minutes);
+function twoDigitZeroPaded(value) {
+  return value.toString().padStart(2, "0");
 }
 
-function updateHours() {
-  let last = hours;
-  hours = calcHours();
-  if (!started || last != hours) updateWidget(hoursWidget, last, hours);
-}
-
-function updateDays() {
-  let last = days;
-  days = calcDays();
-  if (!started || last != days) updateWidget(daysWidget, last, days);
-}
-
-function updateWidget(widget, lastValue, currentValue) {
-  lastValue = lastValue.toString().padStart(2, "0");
-  currentValue = currentValue.toString().padStart(2, "0");
-  let queue = [];
-
+function updateRevealingChildren(widget, value) {
   for (let child of widget.children) {
-    if (
-      child.classList.contains("top-back") ||
-      child.classList.contains("bottom-front")
-    ) {
-      child.textContent = currentValue;
-    } else {
-      queue.push(child);
-    }
+    if (isRevealingChildren(child))
+      child.textContent = value;
   }
+}
+
+function isRevealingChildren(child) {
+  return child.classList.contains("top-back") ||
+    child.classList.contains("bottom-front");
+}
+
+function animateWidgetAndUpdateHiddenChildren(widget, value, timeout = 900) {
   widget.classList.add("flip");
+
   setTimeout(
-    (widget) => {
-      queue.forEach((child) => (child.textContent = currentValue));
+    () => {
+      updateHiddenChildren(widget, value);
       widget.classList.remove("flip");
-    },
-    900,
-    widget,
-    queue
+    }, timeout
   );
 }
 
-function updateTimer() {
-  updateSeconds();
-  updateMinutes();
-  updateHours();
-  updateDays();
-  started = true;
+function updateHiddenChildren(widget, value) {
+  for (let child of widget.children) {
+    if (!isRevealingChildren(child))
+      child.textContent = value;
+  }
 }
 
-countDown();
+function updateTimer() {
+  allTimeTrackers.forEach(obj => updateTimeframe(obj));
+  isTimerStarted = true;
+}
+
+(function countDown() {
+  if (targetTime) {
+    targetTime--;
+    updateTimer();
+    setTimeout(() => countDown(), 1000);
+  }
+})();
