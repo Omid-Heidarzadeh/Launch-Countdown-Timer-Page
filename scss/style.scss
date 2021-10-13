@@ -6,25 +6,25 @@
 
 @keyframes flipTop {
   0% {
-    transform: rotateX(0deg) perspective(200px);
+    transform: rotateX(0deg);
   }
   50% {
-    transform: rotateX(-90deg) perspective(200px);
+    transform: rotateX(-90deg);
   }
   100% {
-    transform: rotateX(-90deg) perspective(200px);
+    transform: rotateX(-90deg);
   }
 }
 
 @keyframes flipBottom {
   0% {
-    transform: rotateX(90deg) perspective(200px);
+    transform: rotateX(90deg);
   }
   50% {
-    transform: rotateX(0deg) perspective(200px);
+    transform: rotateX(0deg);
   }
   100% {
-    transform: rotateX(0deg) perspective(200px);
+    transform: rotateX(0deg);
   }
 }
 
