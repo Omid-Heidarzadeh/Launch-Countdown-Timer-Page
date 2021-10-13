@@ -1,7 +1,7 @@
 @mixin stack-widget-layers {
   $stack: ("bottom-back", "bottom-front", "top-back", "top-front");
   @each $item in $stack {
-    [class*="#{$item}"] {
+    .#{$item} {
       z-index: list.index($stack, $item);
     }
   }
