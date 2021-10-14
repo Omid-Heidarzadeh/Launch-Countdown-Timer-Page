@@ -56,7 +56,7 @@ body {
 
 .main-content {
   flex: 1 0 auto;
-  padding: 0 25px;
+  padding: 0 15px;
   text-align: center;
 }
 
@@ -65,6 +65,9 @@ body {
   letter-spacing: 0.6rem;
   margin-top: 14rem;
   text-transform: uppercase;
+  @media screen and (min-width: 768px) {
+    font-size: 2.4rem;
+  }
 }
 
 .timer {
@@ -73,10 +76,13 @@ body {
   margin: 5rem auto;
   max-width: 700px;
   width: 100%;
+  @media screen and (min-width: 768px) {
+    margin: 10rem auto;
+  }
 }
 
 .widget {
-  margin: 0 0.7rem;
+  margin: 0 0.8rem;
   overflow: hidden;
   position: relative;
   text-align: center;
@@ -88,13 +94,17 @@ body {
 }
 
 .widget__wrapper {
+  border-radius: 0.5rem;
+  box-shadow: 0 5px 2px $shadow;
   color: $soft-red;
   font-size: 4rem;
   height: 6.6rem;
   line-height: 1.65;
+  overflow: hidden;
   position: relative;
   width: 100%;
   @media screen and (min-width: 768px) {
+    box-shadow: 0 10px 2px $shadow;
     font-size: 9rem;
     height: 14rem;
     line-height: 1.58;
@@ -102,7 +112,6 @@ body {
   .top-back,
   .top-front {
     background-color: $widget-background;
-    border-radius: 5px 5px 0 0;
     clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 0% 50%);
     display: inline-block;
     filter: brightness(0.8);
@@ -119,8 +128,6 @@ body {
 
   .bottom-back {
     background-color: $widget-background;
-    border-radius: 0.5rem;
-    box-shadow: 0 5px 2px $shadow;
     clip-path: polygon(0% 100%, 100% 100%, 100% 50%, 0% 50%);
     display: inline-block;
     height: 100%;
@@ -128,9 +135,6 @@ body {
     position: absolute;
     top: 0;
     width: 100%;
-    @media screen and (min-width: 768px) {
-      box-shadow: 0 10px 3px $shadow;
-    }
   }
   .bottom-front {
     @extend .bottom-back;
@@ -185,6 +189,7 @@ body {
   @media screen and (min-width: 768px) {
     font-size: 1.4rem;
     letter-spacing: 0.5rem;
+    margin: 3rem auto;
   }
 }
 
@@ -192,16 +197,22 @@ body {
   background: 82% bottom / auto 100% repeat-x url("../images/pattern-hills.svg");
   display: flex;
   flex-direction: column;
-  min-height: 170px;
+  min-height: 200px;
   .icons-container {
     display: flex;
     flex: 1 0 auto;
     justify-content: center;
+    column-gap: 3.2rem;
     .icon-wrapper {
       align-self: flex-end;
+      text-align: center;
       color: $labels-color;
-      margin: 0 1.5rem 4rem;
+      font-size: 2.4rem;
+      margin-bottom: 3.2rem;
       transition: color 0.3s;
+      @media screen and (min-width: 768px) {
+        margin-bottom: 5rem;
+      }
       &:hover {
         color: $soft-red;
       }
