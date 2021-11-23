@@ -19,10 +19,10 @@ function timeTrackingObject(value, calc, widget) {
 }
 
 const secondsTracker = new timeTrackingObject(calcSeconds(), calcSeconds, secondsWidget);
-const minutessTracker = new timeTrackingObject(calcMinutes(), calcMinutes, minutesWidget);
+const minutesTracker = new timeTrackingObject(calcMinutes(), calcMinutes, minutesWidget);
 const hoursTracker = new timeTrackingObject(calcHours(), calcHours, hoursWidget);
 const daysTracker = new timeTrackingObject(calcDays(), calcDays, daysWidget);
-const allTimeTrackers = [secondsTracker, minutessTracker, hoursTracker, daysTracker];
+const allTimeTrackers = [secondsTracker, minutesTracker, hoursTracker, daysTracker];
 
 // ----- Calculators -----
 function calcSeconds() {
@@ -90,7 +90,7 @@ function updateHiddenChildren(widget, value) {
 }
 
 function updateTimer() {
-  allTimeTrackers.forEach(obj => updateTimeframe(obj));
+  allTimeTrackers.forEach(tracker => updateTimeframe(tracker));
   isTimerStarted = true;
 }
 
